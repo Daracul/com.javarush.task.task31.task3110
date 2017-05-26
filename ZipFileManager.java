@@ -1,6 +1,10 @@
 package com.javarush.task.task31.task3110;
 
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by amalakhov on 26.05.2017.
@@ -13,6 +17,15 @@ public class ZipFileManager {
     }
 
     public void createZip(Path source) throws Exception{
+        try (ZipOutputStream zipOutputStream =new ZipOutputStream(Files.newOutputStream(zipFile));
+             InputStream is = Files.newInputStream(source);) {
+            ZipEntry entry = new ZipEntry(source.getFileName().toString());
+                zipOutputStream.putNextEntry(new ZipEntry(entry));
+                while (is.available() > 0) {
+                    zipOutputStream.write(is.read());
+                }
+            }
+        }
+
 
     }
-}

@@ -11,15 +11,16 @@ import java.nio.file.Paths;
 public class Archiver {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter the full path of file which you want to archive:");
-        String filePath=reader.readLine();
-        ZipFileManager zipFileManager = new ZipFileManager(Paths.get(filePath));
         System.out.println("Enter the full path where you will want to have archived file:");
-        String archivePath = reader.readLine();
+        String archivePath=reader.readLine();
+        System.out.println("Enter the full path of file which you want to archive:");
+        String filePath = reader.readLine();
+        ZipFileManager zipFileManager = new ZipFileManager(Paths.get(archivePath));
         try {
-            zipFileManager.createZip(Paths.get(archivePath));
+            zipFileManager.createZip(Paths.get(filePath));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        reader.close();
     }
 }
